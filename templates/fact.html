@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <?php
+        include("auth.php");
+    ?>
+    <div class="posts" id="posts"></div>
+    <script>
+        var lastDate = null;
+        var lastQueriedDate = null;
+        
+
+        function render(data) {
+            if (!data['err']) {
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        var post = data[i];
+                        $("#posts").html($("#posts").html() + '<div class="post">\
+                            <div class="head">\
+                                <img src="'+post['ava']+'" class="ava">\
+                                <p class = "num">'+ "fact #"+post['num']+'</p>\
+                                <p class="time">' + moment.duration(moment().diff(post['date'])).humanize() + ' назад</p>\
+                            </div>\
+                            <img src="'+post['photo']+'" class="photo">\
+                            <hr>\
+                            <p class="fact" style="font-size: 20px; margin: 20px;">'+post['text']+'</p>\
+                        </div>');
+                    }
+                    lastDate = data[data.length-1]['date'];
+                }
+            }
+        }
+
+        function requestPosts(date) {
+            if (date != lastQueriedDate) {
+                lastQueriedDate = date;
+                $.get("/api/getPosts.php", {"date": date}).done(render);
+            }
+        }
+
+        $(window).scroll(function() {
+            if (($(document).height() - $(window).height() - $(window).scrollTop()) < 140) {
+                requestPosts(lastDate);
+            }
+        });
+
+        var d = new Date();
+        //2022-04-21 07:59:25
+        //Sun Apr 24 2022 19:00:41 GMT+0200 (Eastern European Standard Time)
+
+        var datestring = 
+            d.getFullYear() + "-" + 
+            ("0"+(d.getMonth()+1)).slice(-2) + "-" + 
+            ("0" + d.getDate()).slice(-2) + " " + 
+            ("0" + d.getHours()).slice(-2) + ":" + 
+            ("0" + d.getMinutes()).slice(-2) + ":" + 
+            ("0" + d.getSeconds()).slice(-2);
+
+        requestPosts(datestring);
+    </script>
+{% endblock %}

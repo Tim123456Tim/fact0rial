@@ -1,0 +1,26 @@
+html body{
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.about{
+	margin: auto;
+	max-width: 400px;
+	text-align: center;
+	color: #8a8a8a;	
+}
+
+.btn a {
+	border: 1px solid #2e7bff;
+    background-color: #2e7bff;
+    padding: 7px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 10px;
+    display: block;
+    width: 170px;
+    height: 20px;
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 17px;
+}

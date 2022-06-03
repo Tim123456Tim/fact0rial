@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="description" content="Здесь вы сможете находить проверенные и интересные факты каждый день!">
+        <meta name="tittle" content="Интересные факты каждый день - fact0rial">
+        <meta name="keywords" content="факты, факты каждый день, интересные факты каждый день, fact0rial, fact0rial.ru">
+        <meta property="og:locale" content="ru_RU">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://fact0rial.ru/">
+        <meta property="og:site_name" content="Интересные факты каждый день - fact0rial">
+        <link rel="apple-touch-icon" href="images/1024.png">
+        <meta name="apple-mobile-web-app-title" content="fact0rial">
+        <meta property="og:description" content="Здесь вы сможете находить проверенные и интересные факты каждый день!">
+        <meta name="twitter:description" content="Здесь вы сможете находить проверенные и интересные факты каждый день!">
+        <meta property="og:title" content="Интересные факты каждый день - fact0rial">
+        <meta name="twitter:title" content="Интересные факты каждый день - fact0rial">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon"  href="images/logo.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+        <link rel="apple-touch-icon" href="images/logo_icon.png">
+        <link rel="mask-icon" href="images/logo_icon.png" color="#00а0ff">
+        <title>fact0rial</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NES9R64T19"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-NES9R64T19');
+        </script>
+        <script src="/js/jquery-3.6.0.min.js"></script>
+        <script src="/js/sha1.min.js"></script>
+        <script src="/js/moment-with-locales.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/main.css">  
+
+        {% if dark_theme %}
+            <link rel="stylesheet" type="text/css" href="css/dark.css">   
+        {% endif %}
+
+
+        
+    </head>
+    <script>
+        moment.locale('ru');
+
+
+        function setCookie(name, value) {
+            var expires = "";
+            document.cookie = name + "=" + (value || "") + "; path=/";
+        }
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+        function eraseCookie(name) {   
+            document.cookie = name+'=; Max-Age=-99999999;';
+        }
+    </script>
+    <body>
+        <div class="header">
+            <div class = "left">
+                <div class="three col">
+                  <div class="hamburger" id="hamburger-1">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                  </div>
+                </div>
+            </div>
+            <div class = "center">
+                <a href="/"><h1>fact0rial</h1></a>
+            </div>
+            <div class = "right">
+                <!--<a href = "sign.php">Войти</a>-->
+                <a href="/"><img src="images/logo.png"></a>
+            </div>
+        </div>
+        <div class="sidebar hidden" id="sidebar">
+            <div class="upper">
+                {% if dark_theme %}
+                        <h2 onclick="eraseCookie('dark_theme'); location.reload();">Включить светлую тему</h2>
+                    {% else %}
+                        <h2 onclick="setCookie('dark_theme', 1); location.reload();">Включить тёмную тему</h2>
+                    {% endif %}
+            </div>
+            <div class="space"></div>
+            <div class="lower">
+                <div class="item">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+        <script>
+           $(".hamburger").click(function(){
+                $(this).toggleClass("is-active");
+                $("#sidebar").toggleClass("hidden");
+            });
+        </script>
+    </body>
+</html>
